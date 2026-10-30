@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="sakura">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Happy Birthday, Husaina ✨</title>
+  
+  <!-- Google Fonts Preconnect & Stylesheets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       ANIMATED WELCOME SCREEN (INTERACTIVE SURPRISE GATE)
+       ========================================================================= -->
+  <div class="welcome-screen" id="welcome-screen" role="dialog" aria-modal="true" aria-label="Welcome screen">
+    <div class="welcome-box">
+      <div class="welcome-emblem">H</div>
+      <div class="pill-badge">
+        <span class="sparkle">✨</span> A SPECIAL CELEBRATION <span class="sparkle">✨</span>
+      </div>
+      <h2 style="font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--text-plum-900); margin-bottom: 14px;">
+        For <span class="recipient-name">Husaina</span>
+      </h2>
+      <p style="color: var(--text-plum-700); font-size: 1.05rem; line-height: 1.6; max-width: 440px; margin: 0 auto 30px;">
+        A digital birthday journey crafted with warmth, little surprises, and sincere appreciation for the wonderful person you are.
+      </p>
+
+      <button class="btn btn-primary" id="enter-surprise-btn" style="padding: 16px 36px; font-size: 1.05rem;">
+        <span>Enter Your Surprise</span>
+        <span style="font-size: 1.2rem;">✨</span>
+      </button>
+
+      <div class="welcome-tip">
+        🎧 <em>Turn on your volume for the ambient music box & chimes</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Particle & Confetti Canvases -->
+  <canvas id="particle-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- =========================================================================
+       FLOATING NAVIGATION BAR WITH THEMES & REPLAY
+       ========================================================================= -->
+  <header class="floating-nav">
+    <div class="nav-brand">
+      <span class="nav-sparkle" title="Click me 3 times for a secret surprise!">✦</span>
+      <span class="nav-brand-text"><span class="recipient-name">Husaina</span>'s Day</span>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <ul class="nav-links">
+      <li><a href="#surprise">Surprises</a></li>
+      <li><a href="#gallery">Scrapbook</a></li>
+      <li><a href="#open-when">Open When</a></li>
+      <li><a href="#wish">Wish</a></li>
+      <li><a href="#compliments">Appreciation</a></li>
+      <li><a href="#letter">Letter</a></li>
+      <li><a href="#stars">Stars</a></li>
+      <li><a href="#card">Card</a></li>
+      <li><a href="#fireworks">Fireworks</a></li>
+    </ul>
+
+    <div class="nav-divider"></div>
+
+    <div class="nav-actions">
+      <!-- Theme Switcher Palette -->
+      <div class="theme-picker-group" title="Select Aesthetic Theme">
+        <button class="theme-dot-btn theme-dot-sakura active-theme" data-set-theme="sakura" title="Sakura Blush" aria-label="Sakura Theme"></button>
+        <button class="theme-dot-btn theme-dot-lavender" data-set-theme="lavender" title="Dreamy Lavender" aria-label="Lavender Theme"></button>
+        <button class="theme-dot-btn theme-dot-midnight" data-set-theme="midnight" title="Midnight Starry" aria-label="Midnight Theme"></button>
+        <button class="theme-dot-btn theme-dot-strawberry" data-set-theme="strawberry" title="Strawberry Cream" aria-label="Strawberry Theme"></button>
+      </div>
+
+      <!-- Ambient Music Toggle -->
+      <button class="icon-btn" id="audio-toggle-btn" title="Toggle Music Box" aria-label="Toggle Music Box">
+        <span class="audio-pulse"></span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+      </button>
+
+      <!-- Replay Journey Button -->
+      <button class="icon-btn replay-experience-trigger" id="replay-nav-btn" title="Replay Journey from the Beginning" aria-label="Replay Journey">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+      </button>
+
+      <!-- Personalization / Settings -->
+      <button class="icon-btn" id="open-settings-btn" title="Personalize Name" aria-label="Personalize Name">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO SECTION — THE FIRST IMPRESSION
+       ========================================================================= -->
+  <section class="hero-section" id="hero">
+    <div class="hero-content">
+      <div class="pill-badge">
+        <span class="sparkle">✨</span> A LITTLE SOMETHING JUST FOR YOU <span class="sparkle">✨</span>
+      </div>
+
+      <h1 class="hero-title">
+        Happy Birthday, <span class="name-highlight recipient-name">Husaina</span>
+      </h1>
+
+      <p class="hero-description">
+        Today is all about celebrating the wonderful person you are.
+      </p>
+
+      <!-- Centerpiece: Handcrafted Aesthetic Layered Birthday Cake -->
+      <div class="hero-centerpiece" id="hero-cake-centerpiece" role="button" tabindex="0" aria-label="Birthday cake - click to light candle">
+        <div class="cake-glow" id="hero-cake-glow"></div>
+        <div class="cake-svg-wrapper">
+          <svg viewBox="0 0 200 200" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cake Pedestal -->
+            <ellipse cx="100" cy="178" rx="80" ry="12" fill="#EADFC9" opacity="0.6"/>
+            <path d="M40 174C40 174 50 186 100 186C150 186 160 174 160 174" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+            <path d="M90 178L100 192L110 178" stroke="#D4AF37" stroke-width="2" stroke-linejoin="round"/>
+            
+            <!-- Bottom Tier -->
+            <rect x="36" y="120" width="128" height="50" rx="10" fill="url(#cake-bottom-grad)"/>
+            <!-- Tier Drips / Frosting -->
+            <path d="M36 128C44 136 50 128 58 134C66 140 74 128 82 136C90 142 98 130 106 136C114 142 122 130 130 136C138 142 146 130 154 136C160 132 164 128 164 128" fill="#FFFBF5" opacity="0.95"/>
+            <!-- Gold Pearls on Bottom Tier -->
+            <circle cx="50" cy="155" r="2.5" fill="#D4AF37"/>
+            <circle cx="75" cy="155" r="2.5" fill="#D4AF37"/>
+            <circle cx="100" cy="155" r="2.5" fill="#D4AF37"/>
+            <circle cx="125" cy="155" r="2.5" fill="#D4AF37"/>
+            <circle cx="150" cy="155" r="2.5" fill="#D4AF37"/>
+
+            <!-- Top Tier -->
+            <rect x="55" y="78" width="90" height="44" rx="8" fill="url(#cake-top-grad)"/>
+            <path d="M55 84C62 90 68 84 75 90C82 95 88 85 95 91C102 96 108 86 115 91C122 96 128 86 135 91C141 87 145 84 145 84" fill="#FFFDF9"/>
+            
+            <!-- Candle -->
+            <rect x="96" y="44" width="8" height="34" rx="3" fill="url(#candle-stripe)"/>
+            <path d="M100 36L100 44" stroke="#4A2E4B" stroke-width="1.8" stroke-linecap="round"/>
+
+            <!-- Glowing Candle Flame (Starts blown off; lights up on Little Magic) -->
+            <g id="hero-candle-flame" class="hero-candle-flame">
+              <path d="M100 16C95 24 93 30 100 36C107 30 105 24 100 16Z" fill="url(#flame-grad)"/>
+              <circle cx="100" cy="28" r="3.5" fill="#FFF7C2"/>
+            </g>
+
+            <!-- Gradients -->
+            <defs>
+              <linearGradient id="cake-bottom-grad" x1="36" y1="120" x2="164" y2="170" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FCEDF1"/>
+                <stop offset="0.5" stop-color="#FCE1E8"/>
+                <stop offset="1" stop-color="#F7CBD7"/>
+              </linearGradient>
+              <linearGradient id="cake-top-grad" x1="55" y1="78" x2="145" y2="122" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FAF4EE"/>
+                <stop offset="0.5" stop-color="#F5ECE4"/>
+                <stop offset="1" stop-color="#EEDECD"/>
+              </linearGradient>
+              <linearGradient id="candle-stripe" x1="96" y1="44" x2="104" y2="78" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ECC880"/>
+                <stop offset="0.5" stop-color="#D4AF37"/>
+                <stop offset="1" stop-color="#F7ECC7"/>
+              </linearGradient>
+              <linearGradient id="flame-grad" x1="93" y1="16" x2="107" y2="36" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFDD55"/>
+                <stop offset="0.4" stop-color="#FF9933"/>
+                <stop offset="1" stop-color="#FF4444"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Hero Call-To-Action Buttons -->
+      <div class="hero-actions">
+        <a href="#surprise" class="btn btn-primary" id="btn-to-surprise">
+          <span>Open Your Surprises</span>
+          <span style="font-size: 1.15rem;">🎁</span>
+        </a>
+
+        <div class="magic-btn-container">
+          <!-- Animated Sign Pointing to Little Surprise / Magic -->
+          <div class="magic-sign-badge" id="magic-sign-badge" role="button" tabindex="0" title="Click for a little surprise!">
+            <span class="sign-hand">👇</span>
+            <span class="sign-text">Click for a little surprise!</span>
+            <span class="sign-sparkle">✨</span>
+          </div>
+          <button class="btn btn-secondary" id="magic-btn">
+            <span>A Little Birthday Magic</span>
+            <span style="font-size: 1.15rem;">✨</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated Side Scroll Indicator (Positioned on the side to prevent overlapping) -->
+    <a href="#surprise" class="scroll-indicator" aria-label="Scroll down to explore">
+      <div class="mouse-icon">
+        <div class="mouse-wheel"></div>
+      </div>
+      <span class="scroll-label-desktop">Scroll to explore</span>
+      <span class="scroll-label-mobile">Scroll</span>
+    </a>
+  </section>
+
+  <!-- =========================================================================
+       MYSTERY GIFTS SECTION (THREE CLICKABLE BOXES)
+       ========================================================================= -->
+  <section class="section surprise-section" id="surprise">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">✦</span> TWO SPECIAL SURPRISES <span class="sparkle">✦</span>
+        </div>
+        <h2 class="section-title">Unwrap Your Surprises</h2>
+        <p class="section-subtitle">
+          Each gift box contains a different surprise curated especially for you. Touch each ribbon to reveal what's waiting inside.
+        </p>
+      </div>
+
+      <!-- Dynamic Mystery Gifts Grid -->
+      <div class="mystery-gifts-grid" id="mystery-gifts-grid">
+        <!-- Injected dynamically by gifts.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       POLAROID SCRAPBOOK GALLERY
+       ========================================================================= -->
+  <section class="section gallery-section" id="gallery">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">✦</span> CHERISHED MEMORIES <span class="sparkle">✦</span>
+        </div>
+        <h2 class="section-title">The Polaroid Scrapbook</h2>
+        <p class="section-subtitle">
+          Little moments, lovely memories, and all the quiet appreciation of having you as a wonderful friend.
+        </p>
+
+        <!-- Scrapbook Category Filter Buttons -->
+        <div class="scrapbook-filters" style="margin-top: 24px;">
+          <button class="filter-btn active-filter" data-gallery-filter="all">All Memories</button>
+          <button class="filter-btn" data-gallery-filter="moments">Moments</button>
+          <button class="filter-btn" data-gallery-filter="vibes">Vibes</button>
+          <button class="filter-btn" data-gallery-filter="dreams">Dreams</button>
+        </div>
+      </div>
+
+      <!-- Polaroid Cards Grid -->
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Card 1 -->
+        <div class="polaroid-card reveal-on-scroll delay-1" data-category="moments" tabindex="0" role="button" aria-label="View photo: Endless Conversations">
+          <div class="tape-decor"></div>
+          <div class="polaroid-img-wrapper">
+            <img class="polaroid-img" src="images/endless-conversations.jpeg" alt="A collage of saved chats and shared moments" loading="lazy">
+          </div>
+          <div class="polaroid-caption">
+            <span class="polaroid-tag">LITTLE MOMENTS & MESSAGES</span>
+            <h3 class="polaroid-title">Endless Conversations</h3>
+            <p class="polaroid-text" data-full="A little collection of our chats and shared moments—proof that even ordinary days feel brighter when we keep talking.">
+              A few favorite chats and shared moments, saved close...
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="polaroid-card reveal-on-scroll delay-2" data-category="vibes" tabindex="0" role="button" aria-label="View photo: A Tender Little Moment">
+          <div class="tape-decor"></div>
+          <div class="polaroid-img-wrapper">
+            <img class="polaroid-img photo-focus-lower" src="images/husaina-photo.jpeg" alt="A woman holding a baby in a warmly lit, ornate pavilion" loading="lazy">
+          </div>
+          <div class="polaroid-caption">
+            <span class="polaroid-tag">A MOMENT TO TREASURE</span>
+            <h3 class="polaroid-title">A Tender Little Moment</h3>
+            <p class="polaroid-text" data-full="A quiet, sunlit moment shared with a little one—gentle, precious, and full of warmth. May memories like this always bring a smile.">
+              A quiet moment with a little one, full of warmth...
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="polaroid-card reveal-on-scroll delay-3" data-category="dreams" tabindex="0" role="button" aria-label="View photo: A Day by the Sea">
+          <div class="tape-decor"></div>
+          <div class="polaroid-img-wrapper">
+            <img class="polaroid-img" src="images/beach-photo.jpeg" alt="An illustrated group enjoying a day together in the sea" loading="lazy">
+          </div>
+          <div class="polaroid-caption">
+            <span class="polaroid-tag">SUN, SEA & TOGETHERNESS</span>
+            <h3 class="polaroid-title">A Day by the Sea</h3>
+            <p class="polaroid-text" data-full="A joyful day at the beach, with family and friends gathered in the waves beneath a wide, cloud-filled sky. The kind of togetherness that makes a day unforgettable.">
+              Beach waves, bright skies, and everyone together...
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="polaroid-card reveal-on-scroll delay-1" data-category="moments" tabindex="0" role="button" aria-label="View photo: A Sparkle in Every Day">
+          <div class="tape-decor"></div>
+          <div class="polaroid-img-wrapper">
+            <img class="polaroid-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=700&q=80" alt="Birthday celebration sparklers" loading="lazy">
+          </div>
+          <div class="polaroid-caption">
+            <span class="polaroid-tag">CELEBRATION</span>
+            <h3 class="polaroid-title">A Sparkle in Every Day</h3>
+            <p class="polaroid-text" data-full="May your year be filled with little reasons to laugh, celebrate, and feel loved.">
+              A year full of little reasons to celebrate...
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="polaroid-card reveal-on-scroll delay-2" data-category="dreams" tabindex="0" role="button" aria-label="View photo: Wishes & Starlight">
+          <div class="tape-decor"></div>
+          <div class="polaroid-img-wrapper">
+            <img class="polaroid-img" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=700&q=80" alt="Starlit sky and dreams" loading="lazy">
+          </div>
+          <div class="polaroid-caption">
+            <span class="polaroid-tag">STARRY SKIES</span>
+            <h3 class="polaroid-title">Wishes & Starlight</h3>
+            <p class="polaroid-text" data-full="May the hopes you hold close find their way to bright, beautiful beginnings.">
+              May your hopes find their way to beautiful beginnings...
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="polaroid-card reveal-on-scroll delay-3" data-category="vibes" tabindex="0" role="button" aria-label="View photo: The Best Is Yet to Come">
+          <div class="tape-decor"></div>
+          <div class="polaroid-img-wrapper">
+            <img class="polaroid-img" src="https://images.unsplash.com/photo-1690737495291-0aaa31fcedb8?auto=format&fit=crop&w=700&q=80" alt="An open notebook with a pen and a small flower" loading="lazy">
+          </div>
+          <div class="polaroid-caption">
+            <span class="polaroid-tag">NEW CHAPTER</span>
+            <h3 class="polaroid-title">The Best Is Yet to Come</h3>
+            <p class="polaroid-text" data-full="Here’s to a new chapter filled with calm mornings, brave choices, and lovely surprises.">
+              Here’s to a new chapter full of lovely surprises...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       "OPEN WHEN..." ENVELOPES SECTION
+       ========================================================================= -->
+  <section class="section open-when-section" id="open-when">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">✉️</span> FOR EVERY MOOD <span class="sparkle">✉️</span>
+        </div>
+        <h2 class="section-title">Open When Letters...</h2>
+        <p class="section-subtitle">
+          Whenever you need a smile, a moment of comfort, or a reminder of how capable you are—open one of these envelopes.
+        </p>
+      </div>
+
+      <!-- Injected by envelope.js -->
+      <div class="open-when-grid" id="open-when-grid"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MAKE A WISH / CANDLE BLOWOUT INTERACTIVE SECTION
+       ========================================================================= -->
+  <section class="section wish-section" id="wish">
+    <div class="container-narrow">
+      <div class="wish-card reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">🕯️</span> A MOMENT OF MAGIC <span class="sparkle">🕯️</span>
+        </div>
+        <h2 class="section-title">Make a Birthday Wish</h2>
+        <p class="section-subtitle">
+          Close your eyes, think of something you truly wish for this coming year, and blow out the candle flame.
+        </p>
+
+        <!-- Interactive Cupcake & Flame -->
+        <div class="candle-interactive-stage" id="candle-stage" role="button" tabindex="0" aria-label="Tap to blow out the candle">
+          <div class="smoke-puff" id="smoke-puff"></div>
+          <svg class="cake-cupcake-svg" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cupcake Liner -->
+            <path d="M30 76L38 114C38 116 40 118 43 118H77C80 118 82 116 82 114L90 76" fill="#FCE8ED" stroke="#D4AF37" stroke-width="1.5"/>
+            <path d="M42 76L48 118M54 76L58 118M66 76L62 118M78 76L72 118" stroke="#F5CCD4" stroke-width="1.2"/>
+            
+            <!-- Frosting Swirl -->
+            <path d="M26 76C26 68 36 58 60 58C84 58 94 68 94 76C94 80 88 82 60 82C32 82 26 80 26 76Z" fill="#FFFDF9" stroke="#EADFC9" stroke-width="1.2"/>
+            <path d="M36 62C42 50 50 44 60 44C70 44 78 50 84 62" fill="#FCEDF1"/>
+            <circle cx="60" cy="42" r="6" fill="#F4BAC9"/>
+
+            <!-- Candle Stick -->
+            <rect x="58" y="22" width="4" height="20" rx="1.5" fill="#D4AF37"/>
+            <path d="M60 18L60 22" stroke="#4A2E4B" stroke-width="1.2"/>
+
+            <!-- Flame (Properly positioned within viewBox) -->
+            <g id="interactive-flame" class="interactive-flame">
+              <path d="M60 4C55 10 53 14 60 18C67 14 65 10 60 4Z" fill="url(#flame-color)"/>
+              <circle cx="60" cy="12" r="2.5" fill="#FFFBE6"/>
+            </g>
+
+            <defs>
+              <linearGradient id="flame-color" x1="53" y1="4" x2="67" y2="18" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFDD44"/>
+                <stop offset="0.6" stop-color="#FF8833"/>
+                <stop offset="1" stop-color="#EE3333"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <p class="wish-prompt">
+          Tap the flame or button below to blow out your candle ✨
+        </p>
+
+        <div style="margin-top: 14px;">
+          <button class="btn btn-secondary" id="blow-candle-btn" style="padding: 11px 26px; font-size: 0.95rem; box-shadow: var(--shadow-sm);">
+            <span>Blow Out Candle 💨</span>
+          </button>
+        </div>
+
+        <!-- Wish Result (Hidden until blown) -->
+        <div class="wish-message-reveal" id="wish-reveal">
+          <div class="wish-affirmation">
+            “Your wish has been carried to the stars ✨”
+          </div>
+          <p class="section-subtitle">
+            May every dream and gentle hope in your heart find its wings this year, <span class="recipient-name">Husaina</span>.
+          </p>
+          <div style="margin-top: 20px;">
+            <button class="surprise-replay-btn" id="relight-btn">
+              <span>🕯️</span> Relight Candle
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       COMPLIMENT & AFFIRMATION GENERATOR
+       ========================================================================= -->
+  <section class="section compliments-section" id="compliments">
+    <div class="container-narrow">
+      <div class="section-header reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">🌸</span> WORDS OF APPRECIATION <span class="sparkle">🌸</span>
+        </div>
+        <h2 class="section-title">A Jar of Genuine Reasons</h2>
+        <p class="section-subtitle">
+          Click below to draw a heartfelt thought celebrating what makes you so rare and wonderful.
+        </p>
+      </div>
+
+      <div class="compliment-card-box reveal-on-scroll" id="compliment-card-box">
+        <div class="compliment-counter" id="compliment-counter">
+          Quality #1 • 20 reasons in the jar
+        </div>
+
+        <div class="compliment-text" id="compliment-text">
+          “Your warmth has a way of making any room feel calm and welcoming.”
+        </div>
+
+        <button class="btn btn-primary" id="draw-compliment-btn" style="padding: 12px 28px; font-size: 0.95rem;">
+          <span>Draw Another Reason ✨</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       3D ANIMATED GRAND BIRTHDAY LETTER
+       ========================================================================= -->
+  <section class="section letter-section" id="letter">
+    <div class="container-narrow">
+      <div class="section-header reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">💌</span> AN EXCLUSIVE MESSAGE <span class="sparkle">💌</span>
+        </div>
+        <h2 class="section-title">A Letter For Your New Year</h2>
+        <p class="section-subtitle">
+          Unseal the wax stamp to read a personal note written just for you.
+        </p>
+      </div>
+
+      <div class="main-3d-envelope-wrapper reveal-on-scroll" id="main-3d-envelope">
+        <!-- Envelope Pocket -->
+        <div class="envelope-pocket-box">
+          <div class="envelope-flap-cover"></div>
+          <div class="interactive-wax-seal" id="letter-wax-seal" role="button" tabindex="0" title="Tap to unseal">
+            <span>✦</span>
+          </div>
+
+          <div style="text-align: center; margin-top: 40px;">
+            <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; color: var(--gold-deep); text-transform: uppercase;">
+              PRIVATE & CONFIDENTIAL
+            </span>
+            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-plum-900); margin: 6px 0;">
+              For <span class="recipient-name">Husaina</span>
+            </h3>
+            <span style="font-size: 0.85rem; color: var(--text-plum-600);">Touch wax seal to open 💌</span>
+          </div>
+        </div>
+
+        <!-- Extracted Letter Sheet -->
+        <div class="envelope-letter-sheet" id="envelope-letter-sheet">
+          <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--text-plum-900); text-align: center; margin-bottom: 24px;">
+            Dearest <span class="recipient-name">Husaina</span>,
+          </h3>
+
+          <div class="letter-paragraphs" style="font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.85; color: var(--text-plum-800);">
+            <p style="margin-bottom: 18px;">
+              Birthdays have a gentle way of asking us to pause and reflect on how much we’ve grown, while quietly greeting the new journey that begins tomorrow.
+            </p>
+            <p style="margin-bottom: 18px;">
+              I wanted to build this special corner of the internet for you today, because someone as kind, genuine, and thoughtful as you deserves to be celebrated in a way that feels intentional. Thank you for your warmth, your steady friendship, and all the quiet moments where your presence makes the world feel softer.
+            </p>
+            <p style="margin-bottom: 18px;">
+              As you step into another trip around the sun, I hope this upcoming year brings you deep peace, laughter that makes your stomach ache, exciting new adventures, and all the love you so effortlessly pour into others.
+            </p>
+            <p style="margin-bottom: 18px;">
+              Never doubt how much you are cherished. Happy Birthday!
+            </p>
+          </div>
+
+          <div style="margin-top: 30px; text-align: right;">
+            <p style="font-size: 0.9rem; color: var(--text-plum-600);">With warmest regards & best wishes,</p>
+            <div style="font-family: var(--font-script); font-size: 2.2rem; color: #B84D72;">Always ✨</div>
+          </div>
+
+          <div style="text-align: center; margin-top: 24px;">
+            <button class="surprise-replay-btn" id="fold-letter-btn">
+              <span>↺</span> Fold & Reseal Envelope
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       DREAMY STARRY-NIGHT FINALE (CLICKABLE CONSTELLATION WISHES)
+       ========================================================================= -->
+  <section class="section stars-section" id="stars">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">✨</span> CELESTIAL BLESSINGS <span class="sparkle">✨</span>
+        </div>
+        <h2 class="section-title">A Sky Full of Wishes</h2>
+        <p class="section-subtitle">
+          Touch the glowing constellation stars in the midnight sky to uncover their birthday blessings.
+        </p>
+        <p id="stars-progress-tracker" style="font-size: 0.88rem; font-weight: 600; color: var(--gold-deep); margin-top: 10px;">
+          Discovered: 0 / 7 Constellation Stars ✨
+        </p>
+      </div>
+
+      <!-- Constellation Canvas Container -->
+      <div class="starry-sky-container" id="starry-sky-container">
+        <!-- Injected dynamically by starnight.js -->
+      </div>
+
+      <!-- Wish Card Display -->
+      <div id="starry-wish-display">
+        <div class="constellation-wish-card">
+          <p style="font-size: 0.95rem; color: var(--text-plum-600); font-style: italic;">
+            ✦ Touch any twinkling star in the midnight sky above to read its blessing for you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       DIGITAL KEEPSAKE BIRTHDAY CARD (WITH COPY & DOWNLOAD BUTTONS)
+       ========================================================================= -->
+  <section class="section card-section" id="card">
+    <div class="container-narrow">
+      <div class="section-header reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">💌</span> YOUR DIGITAL KEEPSAKE <span class="sparkle">💌</span>
+        </div>
+        <h2 class="section-title">A Keepsake Birthday Card</h2>
+        <p class="section-subtitle">
+          Save this card to your photos or copy the birthday message to keep with you.
+        </p>
+      </div>
+
+      <div class="digital-card-frame reveal-on-scroll" id="digital-card-showcase">
+        <div class="digital-card-inner-border"></div>
+
+        <span style="display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; color: var(--gold-deep); margin-bottom: 8px;">
+          ✦ OFFICIAL BIRTHDAY KEEPSAKE ✦
+        </span>
+
+        <h3 style="font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--text-plum-900); margin-bottom: 16px;">
+          Happy Birthday, <span class="recipient-name">Husaina</span> ✨
+        </h3>
+
+        <div style="width: 80px; height: 2px; background: var(--gold-primary); margin: 0 auto 20px;"></div>
+
+        <p style="font-family: var(--font-serif); font-size: 1.15rem; font-style: italic; color: var(--text-plum-800); line-height: 1.8; max-width: 520px; margin: 0 auto 24px;">
+          “May this year surround you with quiet peace, unexpected wonders, and laughter that feels like home. Thank you for being such an extraordinary, genuine friend whose presence makes the world softer and brighter.”
+        </p>
+
+        <div style="font-family: var(--font-script); font-size: 2.2rem; color: #B84D72; margin-bottom: 24px;">
+          With warmest wishes & heartfelt joy, Always ✨
+        </div>
+
+        <div class="digital-card-actions">
+          <button class="btn btn-primary" id="download-card-img-btn">
+            <span>Download Keepsake Card</span>
+            <span style="font-size: 1.1rem;">📥</span>
+          </button>
+          <button class="btn btn-secondary" id="copy-card-text-btn">
+            <span>Copy Birthday Wish</span>
+            <span style="font-size: 1.1rem;">📋</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       INTERACTIVE FIREWORKS FINALE
+       ========================================================================= -->
+  <section class="section fireworks-section" id="fireworks">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="pill-badge">
+          <span class="sparkle">🎆</span> GRAND CELEBRATION <span class="sparkle">🎆</span>
+        </div>
+        <h2 class="section-title">The Star Fireworks Finale</h2>
+        <p class="section-subtitle">
+          Launch fireworks whenever you like. Bursts alternate between radiant five-pointed stars and soft, round blooms.
+        </p>
+      </div>
+
+      <div class="fireworks-container reveal-on-scroll" id="fireworks-container">
+        <canvas id="fireworks-canvas"></canvas>
+        <div class="fireworks-hint-overlay">
+          <span>✨ Tap or click to launch a star or a soft bloom ✨</span>
+        </div>
+        <div class="fireworks-controls-bar">
+          <button class="btn btn-primary" id="launch-show-btn" style="padding: 10px 22px; font-size: 0.9rem;">
+            <span>Launch Grand Finale 🎇</span>
+          </button>
+          <div class="fireworks-stats" id="fireworks-count">0 Fireworks Launched</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FOOTER & REPLAY EXPERIENCE
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div style="margin-bottom: 20px;">
+        <button class="btn btn-secondary replay-experience-trigger" style="padding: 10px 24px; font-size: 0.9rem;">
+          <span>Replay Journey From The Beginning ↺</span>
+        </button>
+      </div>
+
+      <p class="footer-text">
+        Created with care for <span class="recipient-name">Husaina</span>’s Birthday ✨
+      </p>
+      <p class="footer-sub">
+        May your year ahead be as lovely and luminous as you are.
+        <span id="footer-secret-key" style="cursor: pointer; margin-left: 8px; opacity: 0.6;" title="A hidden four-leaf clover...">🍀</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODALS: LIGHTBOX, "OPEN WHEN", EASTER EGG, SETTINGS
+       ========================================================================= -->
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <button class="lightbox-nav-btn lightbox-prev" id="lightbox-prev-btn" aria-label="Previous photo">&#8592;</button>
+      <button class="lightbox-nav-btn lightbox-next" id="lightbox-next-btn" aria-label="Next photo">&#8594;</button>
+
+      <img class="lightbox-img" id="lightbox-img" src="" alt="Expanded Memory">
+      <div class="lightbox-info">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h3 class="lightbox-title" id="lightbox-title" style="margin: 0;"></h3>
+          <span id="lightbox-counter" style="font-size: 0.8rem; font-weight: 600; color: var(--gold-deep);">1 of 6</span>
+        </div>
+        <p class="lightbox-desc" id="lightbox-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- "Open When..." Note Modal -->
+  <div class="lightbox-modal" id="open-when-modal" role="dialog" aria-modal="true">
+    <div class="lightbox-content" style="max-width: 520px; padding: 40px 32px; text-align: center;">
+      <button class="modal-close-btn" id="open-when-modal-close" aria-label="Close letter">&times;</button>
+      <div id="open-when-modal-icon" style="font-size: 3rem; margin-bottom: 14px;">✉️</div>
+      <h3 id="open-when-modal-title" style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-plum-900); margin-bottom: 16px;"></h3>
+      <p id="open-when-modal-text" style="font-family: var(--font-serif); font-size: 1.1rem; font-style: italic; color: var(--text-plum-800); line-height: 1.8; margin-bottom: 24px;"></p>
+      <div style="font-family: var(--font-script); font-size: 1.8rem; color: #B84D72;">Always here for you 💗</div>
+    </div>
+  </div>
+
+  <!-- Easter Egg VIP Badge Modal -->
+  <div class="lightbox-modal" id="easter-egg-modal" role="dialog" aria-modal="true">
+    <div class="vip-badge-card">
+      <button class="modal-close-btn" id="easter-egg-close" aria-label="Close modal">&times;</button>
+      <div class="vip-emblem">🏆</div>
+      <span class="pill-badge">SECRET EASTER EGG UNLOCKED</span>
+      <h3 class="vip-title">Official VIP Bestie Pass</h3>
+      <p style="font-size: 0.95rem; color: var(--text-plum-700);">
+        You found the hidden secret! This official VIP pass is permanently issued to <strong data-personalized-name>Husaina</strong>:
+      </p>
+
+      <ul class="vip-perks-list">
+        <li>✨ <strong>Perk #1:</strong> Unlimited emergency dessert & bubble tea calls.</li>
+        <li>✨ <strong>Perk #2:</strong> Priority venting session pass with zero judgment.</li>
+        <li>✨ <strong>Perk #3:</strong> Guaranteed hype person whenever you accomplish something great.</li>
+        <li>✨ <strong>Perk #4:</strong> Unconditional friendship that never expires.</li>
+      </ul>
+
+      <button class="btn btn-primary" id="easter-celebrate-btn" style="padding: 10px 24px;">
+        <span>Claim VIP Pass & Celebrate 🎉</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Popup Notification -->
+  <div class="magic-toast" id="magic-toast" role="alert">
+    <span style="font-size: 1.4rem;">✨</span>
+    <span class="toast-text">
+      You light up the world just by being in it! Wishing you the happiest birthday, <span class="recipient-name">Husaina</span>! 💖
+    </span>
+  </div>
+
+  <!-- Personalization Settings Modal -->
+  <div class="settings-modal" id="settings-modal" role="dialog" aria-modal="true">
+    <div class="settings-box">
+      <h3 class="settings-title">Personalize This Birthday Gift</h3>
+      <p class="settings-desc">
+        Change the recipient name live or copy a direct link to send her with her name pre-filled!
+      </p>
+
+      <div class="form-group">
+        <label class="form-label" for="custom-name-input">Friend's Name</label>
+        <input type="text" id="custom-name-input" class="form-input" value="Husaina" placeholder="Enter name...">
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 24px;">
+        <button class="btn btn-primary" id="save-settings-btn" style="flex: 1; padding: 10px 18px; font-size: 0.9rem;">
+          Save Changes
+        </button>
+        <button class="btn btn-secondary" id="copy-share-link-btn" style="flex: 1; padding: 10px 18px; font-size: 0.9rem;">
+          Copy Share URL 🔗
+        </button>
+      </div>
+
+      <div style="text-align: center; margin-top: 16px;">
+        <button id="close-settings-btn" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; text-decoration: underline;">
+          Cancel & Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core & Feature Scripts in Dependency Order -->
+  <script src="js/config.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/welcome.js"></script>
+  <script src="js/themes.js"></script>
+  <script src="js/gifts.js"></script>
+  <script src="js/envelope.js"></script>
+  <script src="js/compliments.js"></script>
+  <script src="js/candle.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/starnight.js"></script>
+  <script src="js/card-download.js"></script>
+  <script src="js/easter-egg.js"></script>
+  <script src="js/fireworks.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
